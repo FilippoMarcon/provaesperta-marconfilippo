@@ -1,49 +1,112 @@
 import React from "react";
 
+const DETERMINE = [
+  {
+    unita: "DETERMINAZIONE",
+    reg: 4,
+    data: "29/03/2024",
+    oggetto: "AFFIDAMENTO DIRETTO PER ELABORAZIONE CEDOLINI AMMINISTRATORI E ADEMPIMENTI OBBLIGATORI..."
+  },
+  {
+    unita: "DETERMINAZIONE",
+    reg: 3,
+    data: "29/03/2024",
+    oggetto: "PROROGA DEL SERVIZIO DI ASSISTENZA SOCIALE PRESSO LO SPORTELLO ASSISTENTI FAMILIARI FI..."
+  },
+  {
+    unita: "DETERMINAZIONE",
+    reg: 2,
+    data: "19/02/2024",
+    oggetto: "PRESA D'ATTO DIFFIDA VIOLAZIONI FORMALI IN CUMULO MATERIALE"
+  },
+  {
+    unita: "DETERMINAZIONE",
+    reg: 1,
+    data: "05/02/2024",
+    oggetto: "AFFIDAMENTO DIRETTO PER RINNOVO CONTRATTO ANNUALE DI MANUTENZIONE ED ASSISTENZA..."
+  },
+  {
+    unita: "DETERMINAZIONE",
+    reg: 45,
+    data: "21/12/2023",
+    oggetto: "PROROGA DEL SERVIZIO DI ASSISTENZA SOCIALE PRESSO LO SPORTELLO ASSISTENTI FAMILIARI FI..."
+  }
+];
+
 export default function DeterminePage() {
   return (
-    <div className="flex flex-col lg:flex-row max-w-7xl mx-auto pt-24 pb-10">
-      <div className="flex-1 px-6 lg:px-0 lg:pr-16 mt-8">
-        <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
-          <ol className="list-none p-0 inline-flex">
-            <li className="flex items-center">
-              <a href="/" className="font-semibold text-black hover:underline">Home</a>
-              <span className="mx-2">›</span>
-            </li>
-            <li className="flex items-center">
-              <span>Determine</span>
-            </li>
-          </ol>
-        </nav>
-        <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-6">DETERMINE</h1>
-        <p className="mb-4">Il centro diurno è un servizio territoriale di tipo semi-residenziale rivolto prevalentemente ad anziani con vario grado di non autosufficienza, con prevalente disturbo cognitivo.<br/>Gli obiettivi del servizio sono:</p>
-        <ul className="list-disc pl-6 mb-6">
-          <li>Sostegno e sollievo ai familiari e alla rete sociale di supporto</li>
-          <li>Contrastare fenomeni di isolamento e solitudine</li>
-          <li>Potenziare, mantenere e/o compensare abilità e competenze relative alla sfera dell'autonomia, dell'identità e dell'orientamento spazio-temporale, delle relazioni interpersonali e della socializzazione</li>
-          <li>Potenziare la rete di servizi per le persone anziane, proponendo interventi personalizzati, con progetti specifici rispondenti ai bisogni dei singoli.</li>
-        </ul>
-        <p className="mb-2">Le attività del servizio sono:</p>
-        <ul className="list-disc pl-6 mb-6">
-          <li>Assistenza tutelare diurna</li>
-          <li>Igiene e cura della persona, con stimolazione delle capacità residue</li>
-          <li>Somministrazione di colazione, pranzo e merenda con aiuto nell'alimentazione</li>
-          <li>Attività ricreative, culturali, occupazionali, per il mantenimento delle capacità espressive e relazionali, compatibilmente con le condizioni psico-fisiche</li>
-          <li>Attività terapeutico riabilitativa-fisioterapica</li>
-          <li>Supporto psicologico e sociale sia agli utenti che ai familiari</li>
-          <li>Assistenza sanitaria</li>
-        </ul>
-        <p className="mb-2">Le figure professionali:</p>
-        <ul className="list-disc pl-6">
-          <li>Coordinatore responsabile</li>
-          <li>Infermiere professionale</li>
-          <li>Operatore socio-sanitario</li>
-          <li>Assistente sociale</li>
-          <li>Educatore professionale</li>
-          <li>Fisioterapista</li>
-          <li>Psicologo</li>
-        </ul>
+    <div className="max-w-7xl mx-auto pt-24 pb-10 px-4">
+      {/* Titolo */}
+      <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-8">Determine</h1>
+
+      {/* Pulsanti in alto a destra */}
+      <div className="flex justify-end gap-2 mb-2">
+        <button className="flex items-center gap-1 border border-gray-300 rounded px-3 py-1 text-sm bg-white hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 2a8 8 0 105.293 14.707l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+          </svg>
+          Cerca
+        </button>
+        <button className="flex items-center gap-1 border border-gray-300 rounded px-3 py-1 text-sm bg-white hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 3h18v2H3V3zm0 8h18v2H3v-2zm0 8h18v2H3v-2zm4-4h10v2H7v-2zm0-8h10v2H7V7z"/>
+          </svg>
+          CSV
+        </button>
+      </div>
+
+      {/* Tabella */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full border-separate border-spacing-0">
+          <thead>
+            <tr className="border-b-2 border-black">
+              <th className="py-3 px-6 text-left font-bold text-base">
+                <span className="inline-flex items-center gap-1">↕ Unità organizzativa</span>
+              </th>
+              <th className="py-3 px-4 text-left font-bold text-base">
+                <span className="inline-flex items-center gap-1">↕ Reg.Gen.</span>
+              </th>
+              <th className="py-3 px-4 text-left font-bold text-base">
+                <span className="inline-flex items-center gap-1">↕ Data Reg. Gen.</span>
+              </th>
+              <th className="py-3 px-6 text-left font-bold text-base">Oggetto</th>
+            </tr>
+          </thead>
+          <tbody>
+            {DETERMINE.map((row, idx) => (
+              <tr key={row.reg + row.data} className={idx % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                <td className="py-3 px-6 whitespace-nowrap">{row.unita}</td>
+                <td className="py-3 px-4 whitespace-nowrap">{row.reg}</td>
+                <td className="py-3 px-4 whitespace-nowrap">{row.data}</td>
+                <td className="py-3 px-6 truncate max-w-xs md:max-w-lg lg:max-w-2xl">{row.oggetto}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Paginazione */}
+      <div className="flex items-center justify-center gap-2 mt-6 mb-8 select-none">
+        <button className="px-3 py-2 rounded border border-gray-200 bg-white text-xl text-gray-700 hover:bg-gray-100" disabled>{"<"}</button>
+        <button className="px-6 py-2 rounded bg-gray-300 text-xl text-gray-700 font-bold" disabled>1</button>
+        <button className="px-3 py-2 rounded border border-gray-200 bg-white text-xl text-gray-700 hover:bg-gray-100">2</button>
+        <button className="px-3 py-2 rounded border border-gray-200 bg-white text-xl text-gray-700 hover:bg-gray-100">3</button>
+        <span className="px-2 text-xl">...</span>
+        <button className="px-3 py-2 rounded border border-gray-200 bg-white text-xl text-gray-700 hover:bg-gray-100">28</button>
+        <button className="px-3 py-2 rounded border border-gray-200 bg-white text-xl text-gray-700 hover:bg-gray-100">{">"}</button>
+      </div>
+
+      {/* Box informativo */}
+      <div className="mt-6 bg-blue-100 border border-blue-200 rounded p-4 text-sm">
+        <a
+          href="#"
+          className="text-blue-700 underline font-medium"
+        >
+          Per leggere i file firmati digitalmente (estensione '.p7m') è necessario aver installato il software Dike (download)
+        </a>
+        <br />
+        <span>Istruzioni per l'apertura di un file con firma digitale</span>
       </div>
     </div>
   );
-} 
+}

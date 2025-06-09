@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from 'next/navigation';
 
 export default function Navbar({ logo, menuItems, menuDropdowns }) {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +19,27 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
 
   const handleDropdownClick = (dropdownKey) => {
     setOpenDropdown(openDropdown === dropdownKey ? null : dropdownKey);
+  };
+
+  const isActive = (href, item) => {
+    // Controlla se l'elemento è "Sostienici" (non deve essere attivo)
+    if (item.label === "Sostienici") {
+      return false;
+    }
+    // Controlla se il percorso corrente corrisponde all'href
+    if (pathname === href) {
+      return true;
+    }
+    // Controlla per percorsi nidificati
+    if (href !== '/' && pathname.startsWith(href)) {
+      return true;
+    }
+    // Controlla percorsi specifici per i dropdown
+    if (item.dropdown) {
+      const dropdownLinks = menuDropdowns[item.dropdownKey]?.links || [];
+      return dropdownLinks.some(link => pathname === link.href);
+    }
+    return false;
   };
 
   return (
@@ -35,7 +58,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                 <div key={index} className="relative">
                   <button
                     className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 flex items-center space-x-1 group ${
-                      item.active
+                      isActive(item.href, item)
                         ? "bg-blue-50 text-blue-700 border border-blue-200"
                         : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                     }`}
@@ -98,9 +121,17 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                                     <a
                                       key={i}
                                       href={link.href}
-                                      className="flex items-center px-3 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 group"
+                                      className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 group ${
+                                        pathname === link.href
+                                          ? "text-blue-700 bg-blue-50"
+                                          : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                                      }`}
                                     >
-                                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 group-hover:bg-blue-600 transition-colors"></div>
+                                      <div className={`w-1.5 h-1.5 rounded-full mr-3 ${
+                                        pathname === link.href
+                                          ? "bg-blue-700"
+                                          : "bg-blue-400 group-hover:bg-blue-600"
+                                      }`}></div>
                                       {link.label}
                                     </a>
                                   )
@@ -128,9 +159,17 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                                     <a
                                       key={idx}
                                       href={link.href}
-                                      className="flex items-center px-3 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 group"
+                                      className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 group ${
+                                        pathname === link.href
+                                          ? "text-blue-700 bg-blue-50"
+                                          : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                                      }`}
                                     >
-                                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 group-hover:bg-blue-600 transition-colors"></div>
+                                      <div className={`w-1.5 h-1.5 rounded-full mr-3 ${
+                                        pathname === link.href
+                                          ? "bg-blue-700"
+                                          : "bg-blue-400 group-hover:bg-blue-600"
+                                      }`}></div>
                                       {link.label}
                                     </a>
                                   ))}
@@ -147,7 +186,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                   key={index}
                   href={item.href}
                   className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
-                    item.active
+                    isActive(item.href, item)
                       ? "bg-blue-50 text-blue-700 border border-blue-200"
                       : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                   }`}
@@ -203,11 +242,11 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
       </div>
 
       <div
-        className={`lg:hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-40 transition-all duration-300 ${
+        className={`lg:hidden fixed inset-0 bg-white z-40 transition-all duration-300 ${
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-screen bg-white">
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <button
               onClick={() => setMobileMenuOpen(false)}
@@ -230,20 +269,52 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
           </div>
           <div className="flex-1 overflow-y-auto p-4">
             <div className="space-y-2">
-              {menuItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
-                    item.active
-                      ? "bg-blue-50 text-blue-700 border border-blue-200"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {menuItems.map((item, index) =>
+                item.dropdown ? (
+                  <div key={index}>
+                    <button
+                      className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 w-full text-left ${
+                        isActive(item.href, item)
+                          ? "bg-blue-50 text-blue-700 border border-blue-200"
+                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                      }`}
+                      onClick={() => {
+                        handleDropdownClick(item.dropdownKey);
+                      }}
+                    >
+                      {item.label}
+                    </button>
+                    {menuDropdowns[item.dropdownKey] && openDropdown === item.dropdownKey && (
+                      <div className="ml-4 mt-2 space-y-2">
+                        {menuDropdowns[item.dropdownKey].links &&
+                          menuDropdowns[item.dropdownKey].links.map((link, i) => (
+                            <a
+                              key={i}
+                              href={link.href}
+                              className="block px-4 py-3 rounded-lg font-medium transition-all duration-200 text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {link.label}
+                            </a>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <a
+                    key={index}
+                    href={item.href}
+                    className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+                      isActive(item.href, item)
+                        ? "bg-blue-50 text-blue-700 border border-blue-200"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                )
+              )}
             </div>
             <div className="mt-6 pt-6 border-t border-gray-200">
               <a

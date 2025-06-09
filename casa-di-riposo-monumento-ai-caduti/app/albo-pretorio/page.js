@@ -2,48 +2,66 @@ import React from "react";
 
 export default function AlboPretorioPage() {
   return (
-    <div className="flex flex-col lg:flex-row max-w-7xl mx-auto pt-24 pb-10">
-      <div className="flex-1 px-6 lg:px-0 lg:pr-16 mt-8">
-        <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
-          <ol className="list-none p-0 inline-flex">
-            <li className="flex items-center">
-              <a href="/" className="font-semibold text-black hover:underline">Home</a>
-              <span className="mx-2">›</span>
-            </li>
-            <li className="flex items-center">
-              <span>Albo Pretorio</span>
-            </li>
-          </ol>
-        </nav>
-        <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-6">ALBO PRETORIO</h1>
-        <p className="mb-4">Il centro diurno è un servizio territoriale di tipo semi-residenziale rivolto prevalentemente ad anziani con vario grado di non autosufficienza, con prevalente disturbo cognitivo.</p>
-        <p className="mb-2 font-semibold">Gli obiettivi del servizio sono:</p>
-        <ul className="list-disc pl-6 mb-6">
-          <li>Sostegno e sollievo ai familiari e alla rete sociale di supporto</li>
-          <li>Contrastare fenomeni di isolamento e solitudine</li>
-          <li>Potenziare, mantenere e/o compensare abilità e competenze relative alla sfera dell'autonomia, dell'identità e dell'orientamento spazio-temporale, delle relazioni interpersonali e della socializzazione</li>
-          <li>Potenziare la rete di servizi per le persone anziane, proponendo interventi personalizzati, con progetti specifici rispondenti ai bisogni dei singoli.</li>
-        </ul>
-        <p className="mb-2 font-semibold">Le attività del servizio sono:</p>
-        <ul className="list-disc pl-6 mb-6">
-          <li>Assistenza tutelare diurna</li>
-          <li>Igiene e cura della persona, con stimolazione delle capacità residue</li>
-          <li>Somministrazione di colazione, pranzo e merenda con aiuto nell'alimentazione</li>
-          <li>Attività ricreative, culturali, occupazionali, per il mantenimento delle capacità espressive e relazionali, compatibilmente con le condizioni psico-fisiche</li>
-          <li>Attività terapeutico riabilitativa-fisioterapica</li>
-          <li>Supporto psicologico e sociale sia agli utenti che ai familiari</li>
-          <li>Assistenza sanitaria</li>
-        </ul>
-        <p className="mb-2 font-semibold">Le figure professionali:</p>
-        <ul className="list-disc pl-6">
-          <li>Coordinatore responsabile</li>
-          <li>Infermiere professionale</li>
-          <li>Operatore socio-sanitario</li>
-          <li>Assistente sociale</li>
-          <li>Educatore professionale</li>
-          <li>Fisioterapista</li>
-          <li>Psicologo</li>
-        </ul>
+    <div className="max-w-7xl mx-auto pt-24 pb-10 px-4">
+      {/* Breadcrumb */}
+      <nav className="text-sm text-gray-500 mb-4 flex items-center" aria-label="Breadcrumb">
+        <a href="/" className="font-semibold text-black hover:underline">Home</a>
+        <span className="mx-2">›</span>
+        <span className="font-semibold text-gray-400">I.P.A.B. informa</span>
+        <span className="mx-2">›</span>
+        <span className="text-black">Albo pretorio</span>
+      </nav>
+
+      {/* Titolo */}
+      <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-8">Albo pretorio</h1>
+
+      {/* Pulsanti in alto a destra */}
+      <div className="flex justify-end gap-2 mb-2">
+        <button className="flex items-center gap-1 border border-gray-300 rounded px-3 py-1 text-sm bg-white hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 2a8 8 0 105.293 14.707l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z"/>
+          </svg>
+          Cerca
+        </button>
+        <button className="flex items-center gap-1 border border-gray-300 rounded px-3 py-1 text-sm bg-white hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 3h18v2H3V3zm0 8h18v2H3v-2zm0 8h18v2H3v-2zm4-4h10v2H7v-2zm0-8h10v2H7V7z"/>
+          </svg>
+          Storico
+        </button>
+      </div>
+
+      {/* Tabella */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full border-separate border-spacing-0">
+          <thead>
+            <tr className="border-b-2 border-black">
+              <th className="py-3 px-6 text-center font-bold text-base">Numero pubblicazione</th>
+              <th className="py-3 px-6 text-center font-bold text-base">Numero atto</th>
+              <th className="py-3 px-6 text-center font-bold text-base">
+                <span className="inline-flex items-center gap-1">▼ Data inizio</span>
+              </th>
+              <th className="py-3 px-6 text-center font-bold text-base">Data fine</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="bg-gray-50">
+              <td colSpan={4} className="py-4 px-6 text-center text-gray-700">Nessuna pubblicazione estratta</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Box informativo */}
+      <div className="mt-6 bg-blue-100 border border-blue-200 rounded p-4 text-sm">
+        <a
+          href="#"
+          className="text-blue-700 underline font-medium"
+        >
+          Per leggere i file firmati digitalmente (estensione '.p7m') è necessario aver installato il software Dike (download)
+        </a>
+        <br />
+        <span>Istruzioni per l'apertura di un file con firma digitale</span>
       </div>
     </div>
   );
