@@ -16,32 +16,53 @@ export default function Home() {
           { label: "Sostienici", href: "#" },
           { label: "Accessi riservati", href: "#", dropdown: true, dropdownKey: "accessiRiservati" },
           { label: "Extranet", href: "#" },
+          { label: "PRIVACY", href: "#" },
         ]}
         menuDropdowns={{
-          servizi: [
-            { label: 'CENTRO DIURNO "ANCHISE"', href: '#' },
-            { label: 'CENTRO ANZIANI "COLORA IL TUO TEMPO"', href: '#' },
-            { label: 'SERVIZIO ASSISTENZA DOMICILIARE S.A.D.', href: '#' },
-            { label: 'SPORTELLO ASSISTENTI FAMILIARI', href: '#' },
-            { label: 'PUNTO PRELIEVI "PASSARELLA" SERVIZIO INFERMIERISTICO', href: '#' },
-          ],
-          percheIpab: [
-            { label: "Motivo 1", href: "#" },
-            { label: "Motivo 2", href: "#" },
-            { label: "Motivo 3", href: "#" },
-          ],
-          ipabInforma: [
-            { label: "Notizia 1", href: "#" },
-            { label: "Notizia 2", href: "#" },
-            { label: "Notizia 3", href: "#" },
-          ],
-          accessiRiservati: [
-            { label: "Area Riservata 1", href: "#" },
-            { label: "Area Riservata 2", href: "#" },
-          ],
-          privacy: [
-            { label: "Privacy Policy", href: "#" },
-          ]
+          servizi: {
+            links: [
+              { label: 'CENTRO DIURNO "ANCHISE"', href: '#' },
+              { label: 'CENTRO ANZIANI "COLORA IL TUO TEMPO"', href: '#' },
+              { label: 'SERVIZIO ASSISTENZA DOMICILIARE S.A.D.', href: '#' },
+              { label: 'SPORTELLO ASSISTENTI FAMILIARI', href: '#' },
+              { label: 'PUNTO PRELIEVI "PASSARELLA" SERVIZIO INFERMIERISTICO', href: '#' },
+            ]
+          },
+          percheIpab: {
+            links: [
+              { label: "VISION E MISSION", href: "#" },
+              { label: "STATUTO", href: "#" },
+            ]
+          },
+          ipabInforma: {
+            title: "ACCESSO AGLI ATTI",
+            description: [
+              "Il servizio consente la consultazione degli atti amministrativi in corso di pubblicazione all'Albo Pretorio on-line, nonché degli atti la cui pubblicazione è scaduta.",
+            ],
+            links: [
+              { label: "Albo pretorio", href: "#" },
+              { label: "Delibere", href: "#" },
+              { label: "Determine", href: "#" },
+            ],
+            right: {
+              title: "AMMINISTRAZIONE TRASPARENTE",
+              text: "In questa sezione sono pubblicati, raggruppati secondo le indicazioni di legge, documenti, informazioni e dati concernenti l'organizzazione dell'amministrazione, le attivita' e le sue modalita' di realizzazione.",
+              links: [
+                { label: "Amministrazione trasparente", href: "#" }
+              ]
+            }
+          },
+          accessiRiservati: {
+            links: [
+              { label: "Intranet sito", href: "#" },
+              { label: "Area Dipendenti", href: "#" },
+            ]
+          },
+          privacy: {
+            links: [
+              { label: "Privacy Policy", href: "#" },
+            ]
+          }
         }}
       />
     </>
