@@ -24,24 +24,6 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
     setOpenDropdown(openDropdown === dropdownKey ? null : dropdownKey);
   };
 
-  // Funzione per determinare se un link è attivo
-  const isActive = (href, item) => {
-    if (item.label === "Sostienici") {
-      return false;
-    }
-    if (pathname === href) {
-      return true;
-    }
-    if (href !== '/' && pathname.startsWith(href)) {
-      return true;
-    }
-    if (item.dropdown) {
-      const dropdownLinks = menuDropdowns[item.dropdownKey]?.links || [];
-      return dropdownLinks.some(link => pathname === link.href);
-    }
-    return false;
-  };
-
   // Renderizza la navbar
   return (
     <nav
@@ -60,11 +42,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                 // Elemento del menu a tendina
                 <div key={index} className="relative">
                   <button
-                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 flex items-center space-x-1 group ${
-                      isActive(item.href, item)
-                        ? "bg-blue-50 text-blue-700 border border-blue-200"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-                    }`}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 flex items-center space-x-1 group text-gray-700 hover:text-blue-600 hover:bg-gray-50`}
                     onClick={() => handleDropdownClick(item.dropdownKey)}
                   >
                     <span>{item.label}</span>
@@ -125,17 +103,9 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                                     <a
                                       key={i}
                                       href={link.href}
-                                      className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 group ${
-                                        pathname === link.href
-                                          ? "text-blue-700 bg-blue-50"
-                                          : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                                      }`}
+                                      className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 group text-gray-700 hover:text-blue-600 hover:bg-blue-50`}
                                     >
-                                      <div className={`w-1.5 h-1.5 rounded-full mr-3 ${
-                                        pathname === link.href
-                                          ? "bg-blue-700"
-                                          : "bg-blue-400 group-hover:bg-blue-600"
-                                      }`}></div>
+                                      <div className={`w-1.5 h-1.5 rounded-full mr-3 bg-blue-400 group-hover:bg-blue-600`}></div>
                                       {link.label}
                                     </a>
                                   )
@@ -163,17 +133,9 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                                     <a
                                       key={idx}
                                       href={link.href}
-                                      className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 group ${
-                                        pathname === link.href
-                                          ? "text-blue-700 bg-blue-50"
-                                          : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                                      }`}
+                                      className={`flex items-center px-3 py-2 text-sm rounded-lg transition-all duration-200 group text-gray-700 hover:text-blue-600 hover:bg-blue-50`}
                                     >
-                                      <div className={`w-1.5 h-1.5 rounded-full mr-3 ${
-                                        pathname === link.href
-                                          ? "bg-blue-700"
-                                          : "bg-blue-400 group-hover:bg-blue-600"
-                                      }`}></div>
+                                      <div className={`w-1.5 h-1.5 rounded-full mr-3 bg-blue-400 group-hover:bg-blue-600`}></div>
                                       {link.label}
                                     </a>
                                   ))}
@@ -191,8 +153,8 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                   key={index}
                   href={item.href}
                   className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
-                    isActive(item.href, item)
-                      ? "bg-blue-50 text-blue-700 border border-blue-200"
+                    pathname === item.href
+                      ? "bg-blue-100 text-blue-700 font-semibold"
                       : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                   }`}
                 >
@@ -283,11 +245,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                   // Elemento dropdown nel menu mobile
                   <div key={index}>
                     <button
-                      className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 w-full text-left ${
-                        isActive(item.href, item)
-                          ? "bg-blue-50 text-blue-700 border border-blue-200"
-                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-                      }`}
+                      className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 w-full text-left text-gray-700 hover:text-blue-600 hover:bg-gray-50`}
                       onClick={() => {
                         handleDropdownClick(item.dropdownKey);
                       }}
@@ -301,7 +259,11 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                             <a
                               key={i}
                               href={link.href}
-                              className="block px-4 py-3 rounded-lg font-medium transition-all duration-200 text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                              className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 text-sm ${
+                                pathname === link.href
+                                  ? "bg-blue-100 text-blue-700 font-semibold"
+                                  : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                              }`}
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               {link.label}
@@ -316,8 +278,8 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                     key={index}
                     href={item.href}
                     className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
-                      isActive(item.href, item)
-                        ? "bg-blue-50 text-blue-700 border border-blue-200"
+                      pathname === item.href
+                        ? "bg-blue-100 text-blue-700 font-semibold"
                         : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
