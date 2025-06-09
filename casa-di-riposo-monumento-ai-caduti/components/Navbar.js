@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { usePathname } from 'next/navigation';
 
 export default function Navbar({ logo, menuItems, menuDropdowns }) {
+  // Stato per gestire il dropdown, il menu mobile e lo scroll
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
+  // Effetto per ascoltare lo scroll della pagina
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -17,24 +19,22 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Gestisce l'apertura e la chiusura del dropdown
   const handleDropdownClick = (dropdownKey) => {
     setOpenDropdown(openDropdown === dropdownKey ? null : dropdownKey);
   };
 
+  // Funzione per determinare se un link è attivo
   const isActive = (href, item) => {
-    // Controlla se l'elemento è "Sostienici" (non deve essere attivo)
     if (item.label === "Sostienici") {
       return false;
     }
-    // Controlla se il percorso corrente corrisponde all'href
     if (pathname === href) {
       return true;
     }
-    // Controlla per percorsi nidificati
     if (href !== '/' && pathname.startsWith(href)) {
       return true;
     }
-    // Controlla percorsi specifici per i dropdown
     if (item.dropdown) {
       const dropdownLinks = menuDropdowns[item.dropdownKey]?.links || [];
       return dropdownLinks.some(link => pathname === link.href);
@@ -42,6 +42,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
     return false;
   };
 
+  // Renderizza la navbar
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -52,9 +53,11 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Menu principale (desktop) */}
           <div className="hidden lg:flex items-center space-x-1">
             {menuItems.map((item, index) =>
               item.dropdown ? (
+                // Elemento del menu a tendina
                 <div key={index} className="relative">
                   <button
                     className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 flex items-center space-x-1 group ${
@@ -84,6 +87,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                   </button>
 
                   {menuDropdowns[item.dropdownKey] && (
+                    // Contenuto del menu a tendina
                     <div
                       className={`absolute top-full left-0 mt-2 w-[480px] bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transition-all duration-300 ${
                         openDropdown === item.dropdownKey
@@ -182,6 +186,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                   )}
                 </div>
               ) : (
+                // Elemento del menu semplice
                 <a
                   key={index}
                   href={item.href}
@@ -197,6 +202,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
             )}
           </div>
 
+          {/* Bottone Regione Veneto (desktop) */}
           <div className="hidden lg:flex items-center">
             <a
               href="http://www.regione.veneto.it/"
@@ -218,6 +224,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
             </a>
           </div>
 
+          {/* Bottone menu mobile */}
           <div className="lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
@@ -241,6 +248,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
         </div>
       </div>
 
+      {/* Menu mobile */}
       <div
         className={`lg:hidden fixed inset-0 bg-white z-40 transition-all duration-300 ${
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
@@ -248,6 +256,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
       >
         <div className="flex flex-col h-screen bg-white">
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            {/* Bottone chiusura menu mobile */}
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="p-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
@@ -271,6 +280,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
             <div className="space-y-2">
               {menuItems.map((item, index) =>
                 item.dropdown ? (
+                  // Elemento dropdown nel menu mobile
                   <div key={index}>
                     <button
                       className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 w-full text-left ${
@@ -301,6 +311,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                     )}
                   </div>
                 ) : (
+                  // Elemento semplice nel menu mobile
                   <a
                     key={index}
                     href={item.href}
@@ -316,6 +327,7 @@ export default function Navbar({ logo, menuItems, menuDropdowns }) {
                 )
               )}
             </div>
+            {/* Bottone regione veneto (mobile) */}
             <div className="mt-6 pt-6 border-t border-gray-200">
               <a
                 href="http://www.regione.veneto.it/"

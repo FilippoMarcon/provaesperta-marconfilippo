@@ -15,6 +15,14 @@ const menu = [
   { label: "Sovvenzioni, contributi, sussidi, vantaggi economici", open: true },
   { label: "Bilanci", open: true },
   { label: "Beni immobili e gestione patrimonio", open: true },
+  { label: "Controlli e rilievi sull'amministrazione", open: true },
+  { label: "Servizi erogati", open: true },
+  { label: "Pagamenti dell'amministrazione", open: true },
+  { label: "Opere pubbliche", open: true },
+  { label: "Pianificazione e governo del territorio" },
+  { label: "Strutture sanitarie private accreditate", open: true },
+  { label: "Interventi straordinari e di emergenza" },
+  { label: "Altri contenuti" },
 ];
 
 export default function AmministrazioneTrasparentePage() {
